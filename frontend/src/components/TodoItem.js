@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 
-const TodoItem = ({ todo, onUpadate, onDelete }) => {
+const TodoItem = ({ todo, onUpdate, onDelete }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editTitle, setEditTitle] = useState(todo.title);
   const [editDescription, setEditDescription] = useState(todo.description);
 
   const handleUpdate = async () => {
-    await onUpadate(todo._id, {
+    await onUpdate(todo._id, {
       title: editTitle,
       description: editDescription,
       completed: todo.completed,
@@ -14,7 +14,7 @@ const TodoItem = ({ todo, onUpadate, onDelete }) => {
     setIsEditing(false);
   };
   const toggleComplete = async () => {
-    await onUpadate(todo._id, {
+    await onUpdate(todo._id, {
       ...todo,
       completed: !todo.completed,
     });

@@ -28,11 +28,12 @@ function TodoForm({ onTodoAdded }) {
           onChange={(e) => setTitle(e.target.value)}
         />
         <textarea
-          placeholder="Todo description...{optional}"
+          placeholder="Todo description... (optional)"
           value={description}
-          onChange={(e) => setTitle(e.target.value)}
+          onChange={(e) => setDescription(e.target.value)} // ✅ FIX
           rows={3}
         />
+
         <button type="submit">Add Todo</button>
       </form>
     </div>

@@ -1,38 +1,348 @@
-.App {
-  text-align: center;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   min-height: 100vh;
+  padding: 20px;
+}
+
+.App {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Header */
+header {
+  text-align: center;
+  margin-bottom: 40px;
+  animation: fadeIn 0.5s ease-in;
+}
+
+header h1 {
+  color: white;
+  font-size: 2.5rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Container */
+.container {
+  background: white;
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+/* Todo Form */
+.todo-form {
+  margin-bottom: 30px;
+  padding-bottom: 30px;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.todo-form h2 {
+  color: #333;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+}
+
+.todo-form form {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  gap: 15px;
+}
+
+.todo-form input,
+.todo-form textarea {
+  padding: 12px 15px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: all 0.3s ease;
+}
+
+.todo-form input:focus,
+.todo-form textarea:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.todo-form button {
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.todo-form button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+.todo-form button:active {
+  transform: translateY(0);
+}
+
+/* Todo List */
+.todo-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.empty-message {
+  text-align: center;
+  color: #999;
+  font-size: 1.1rem;
+  padding: 40px 20px;
+}
+
+/* Todo Item */
+.todo-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 12px;
+  border-left: 4px solid #667eea;
+  transition: all 0.3s ease;
+  animation: slideIn 0.3s ease;
+}
+
+.todo-item:hover {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transform: translateX(5px);
+}
+
+.todo-item.completed {
+  border-left-color: #51cf66;
+  background: #e7f5e7;
+}
+
+.todo-item.completed .todo-text h3 {
+  text-decoration: line-through;
+  color: #999;
+}
+
+.todo-item.completed .todo-text p {
+  text-decoration: line-through;
+  color: #aaa;
+}
+
+/* Todo Content */
+.todo-content {
+  display: flex;
+  gap: 15px;
+  flex: 1;
+  align-items: flex-start;
+}
+
+.todo-content input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  margin-top: 5px;
+  cursor: pointer;
+  accent-color: #667eea;
+}
+
+.todo-text {
+  flex: 1;
+}
+
+.todo-text h3 {
+  color: #333;
+  font-size: 1.2rem;
+  margin-bottom: 8px;
+  word-break: break-word;
+}
+
+.todo-text p {
+  color: #666;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  word-break: break-word;
+}
+
+/* Todo Actions */
+.todo-actions {
+  display: flex;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.todo-actions button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.todo-actions button:first-child {
+  background: #4dabf7;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.todo-actions button:first-child:hover {
+  background: #339af0;
 }
 
-@keyframes App-logo-spin {
+.todo-actions button:last-child {
+  background: #ff6b6b;
+  color: white;
+}
+
+.todo-actions button:last-child:hover {
+  background: #fa5252;
+}
+
+/* Editing State */
+.todo-item.editing {
+  flex-direction: column;
+  background: #fff3cd;
+  border-left-color: #ffc107;
+}
+
+.todo-item.editing input,
+.todo-item.editing textarea {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid #ffc107;
+  border-radius: 6px;
+  font-size: 1rem;
+  margin-bottom: 10px;
+  font-family: inherit;
+}
+
+.todo-item.editing button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.todo-item.editing button:first-child {
+  background: #51cf66;
+  color: white;
+}
+
+.todo-item.editing button:first-child:hover {
+  background: #37b24d;
+}
+
+.todo-item.editing button:last-child {
+  background: #868e96;
+  color: white;
+}
+
+.todo-item.editing button:last-child:hover {
+  background: #495057;
+}
+
+/* Loading and Error States */
+.loading,
+.error {
+  text-align: center;
+  padding: 100px 20px;
+  font-size: 1.5rem;
+  color: white;
+}
+
+.error {
+  background: rgba(255, 107, 107, 0.9);
+  border-radius: 12px;
+  margin: 20px;
+}
+
+/* Animations */
+@keyframes fadeIn {
   from {
-    transform: rotate(0deg);
+    opacity: 0;
+    transform: translateY(-20px);
   }
+
   to {
-    transform: rotate(360deg);
+    opacity: 1;
+    transform: translateY(0);
   }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  header h1 {
+    font-size: 2rem;
+  }
+
+  .container {
+    padding: 20px;
+  }
+
+  .todo-item {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .todo-actions {
+    width: 100%;
+  }
+
+  .todo-actions button {
+    flex: 1;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    padding: 10px;
+  }
+
+  header h1 {
+    font-size: 1.5rem;
+  }
+
+  .todo-form h2 {
+    font-size: 1.2rem;
+  }
+}
+.footer {
+  margin-top: 40px;
+  padding: 16px;
+  text-align: center;
+  color: #aaa;
+  font-size: 14px;
+}
+
+.footer .brand {
+  color: #00ffd5;
+  font-weight: 600;
+  letter-spacing: 0.5px;
 }
