@@ -1,13 +1,21 @@
-import React, { useState } from 'react'
+import React, { useState } from "react";
 
-function TodoForm({onAddedTodo}) {
-    const [title , setTitle] = useState('');
-    const [description , setDescription] = useState('');
+function TodoForm({ onTodoAdded }) {
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
 
-    const handleSubmit = async(e) =>{
-        e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!title.trim()) {
+      alert("Title is required!");
+      return;
     }
 
+    await onTodoAdded({title, description});
+    
+    setTitle('');
+    setDescription('');
+  };
 
   return (
     <div className="todo-form">
